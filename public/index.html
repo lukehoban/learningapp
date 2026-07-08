@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Joe's Learning App</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🚀 Joe's Learning App</h1>
+    <p class="tagline">A dynamic, homeschool-friendly learning adventure</p>
+    <span id="ai-badge" class="badge">checking AI status…</span>
+  </header>
+
+  <main id="app">
+    <!-- Screen 1: pick subject/topic/grade -->
+    <section id="picker" class="card">
+      <h2>What should we learn today?</h2>
+      <div class="field">
+        <label for="subject">Subject</label>
+        <select id="subject"></select>
+      </div>
+      <div class="field">
+        <label for="topic">Topic</label>
+        <select id="topic"></select>
+      </div>
+      <div class="field">
+        <label for="grade">Grade level</label>
+        <select id="grade">
+          <option>Kindergarten</option>
+          <option selected>1st-2nd grade</option>
+          <option>3rd-4th grade</option>
+          <option>5th-6th grade</option>
+          <option>Middle school</option>
+        </select>
+      </div>
+      <button id="start-btn" class="primary">Start Lesson</button>
+    </section>
+
+    <!-- Screen 2: lesson -->
+    <section id="lesson-screen" class="card hidden">
+      <h2 id="lesson-title"></h2>
+      <div id="lesson-body"></div>
+      <button id="quiz-btn" class="primary">Take the Quiz →</button>
+    </section>
+
+    <!-- Screen 3: quiz -->
+    <section id="quiz-screen" class="card hidden">
+      <div class="progress-row">
+        <span id="quiz-progress"></span>
+        <span id="level-badge" class="badge"></span>
+      </div>
+      <h2 id="question-text"></h2>
+      <div id="choices"></div>
+      <div id="feedback"></div>
+      <button id="next-btn" class="primary hidden">Next →</button>
+    </section>
+
+    <!-- Screen 4: results -->
+    <section id="results-screen" class="card hidden">
+      <h2>🎉 Great job!</h2>
+      <p id="results-summary"></p>
+      <p id="results-level"></p>
+      <button id="again-btn" class="primary">Choose Another Topic</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prototype step 1 of the prototype → production journey. Wire in an AI model via
+      <code>OPENAI_API_KEY</code> or Azure OpenAI env vars to make every topic dynamic.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
