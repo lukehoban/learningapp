@@ -1,0 +1,82 @@
+.grade-selector {
+  max-width: 640px;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+}
+
+.grade-selector h2 {
+  color: white;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.grade-selector-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.grade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 400px) {
+  .grade-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grade-card {
+  background: white;
+  border: none;
+  border-radius: 20px;
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.grade-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--grade-color, #6c63ff);
+}
+
+.grade-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.grade-card:active {
+  transform: translateY(-1px);
+}
+
+.grade-emoji {
+  font-size: 2.5rem;
+}
+
+.grade-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.grade-topics {
+  font-size: 0.8rem;
+  color: #718096;
+  line-height: 1.4;
+}

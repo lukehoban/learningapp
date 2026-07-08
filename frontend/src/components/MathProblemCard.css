@@ -1,0 +1,125 @@
+.problem-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(108, 99, 255, 0.15);
+  text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.problem-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.operation-badge {
+  font-size: 1.5rem;
+}
+
+.operation-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.problem-question {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 800;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  min-height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.answer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.answer-input {
+  width: 100%;
+  max-width: 200px;
+  padding: 0.875rem 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  border: 3px solid #e2e8f0;
+  border-radius: 16px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -moz-appearance: textfield;
+}
+
+.answer-input::-webkit-outer-spin-button,
+.answer-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.answer-input:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.15);
+}
+
+.answer-input:disabled {
+  background: #f7f7f7;
+}
+
+.submit-btn {
+  width: 100%;
+  max-width: 200px;
+}
+
+/* Hint */
+.hint-section {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.hint-toggle {
+  background: none;
+  border: 2px solid #e2e8f0;
+  border-radius: 50px;
+  padding: 0.4rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: #6c63ff;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.hint-toggle:hover {
+  background: #f0efff;
+  border-color: #6c63ff;
+}
+
+.hint-text {
+  margin-top: 0.75rem;
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  background: #f0efff;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+}

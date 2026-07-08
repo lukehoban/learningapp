@@ -1,0 +1,162 @@
+/* ===== Global Styles ===== */
+:root {
+  --color-primary: #6c63ff;
+  --color-primary-dark: #5a52d5;
+  --color-success: #4caf50;
+  --color-error: #f44336;
+  --color-warning: #ff9800;
+  --color-bg: #f0f2ff;
+  --color-card: #ffffff;
+  --color-text: #2d3748;
+  --color-text-light: #718096;
+  --radius: 16px;
+  --shadow: 0 8px 32px rgba(108, 99, 255, 0.15);
+  --shadow-hover: 0 12px 40px rgba(108, 99, 255, 0.25);
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* ===== Header ===== */
+.app-header {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+  color: white;
+}
+
+.app-header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-top: 0.25rem;
+}
+
+/* ===== Main Content ===== */
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* ===== Playing Layout ===== */
+.playing-layout {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ===== Error Banner ===== */
+.error-banner {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  color: #856404;
+  font-size: 0.9rem;
+}
+
+/* ===== Session Complete ===== */
+.session-complete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 1rem;
+}
+
+.complete-card {
+  background: var(--color-card);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow);
+}
+
+.complete-emoji {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+}
+
+.complete-card h2 {
+  font-size: 1.8rem;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.grade-label {
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.final-score {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 1rem 0;
+}
+
+.score-correct {
+  color: var(--color-success);
+}
+
+.score-divider,
+.score-total {
+  color: var(--color-text-light);
+}
+
+.score-label {
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+}
+
+.score-message {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin: 1rem 0 1.5rem;
+  line-height: 1.5;
+}
+
+/* ===== Shared Button Styles ===== */
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.875rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(108, 99, 255, 0.35);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.45);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
