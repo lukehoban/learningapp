@@ -1,1 +1,0 @@
-{"root":["./src/App.tsx","./src/main.tsx","./src/test-setup.ts","./src/components/FeedbackDisplay.tsx","./src/components/GradeSelector.tsx","./src/components/MathProblemCard.tsx","./src/components/ProgressTracker.tsx","./src/components/__tests__/components.test.tsx","./src/hooks/useMathSession.ts","./src/types/index.ts"],"version":"5.6.3"}

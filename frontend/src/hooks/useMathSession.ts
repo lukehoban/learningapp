@@ -93,11 +93,8 @@ export function useMathSession(grade: Grade): UseMathSessionReturn {
   const nextProblem = useCallback(() => {
     setLastResult(null)
     setCurrentProblem(null)
-    setStats((prev) => {
-      fetchProblem(prev)
-      return prev
-    })
-  }, [fetchProblem])
+    fetchProblem(stats)
+  }, [fetchProblem, stats])
 
   const resetSession = useCallback(() => {
     setCurrentProblem(null)

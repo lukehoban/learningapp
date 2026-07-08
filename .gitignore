@@ -7,6 +7,10 @@ dist/
 frontend/dist/
 api/dist/
 
+# TypeScript build info (generated artifact)
+tsconfig.tsbuildinfo
+**/tsconfig.tsbuildinfo
+
 # Environment / secrets (never commit)
 .env
 api/.env
