@@ -52,17 +52,35 @@ Restart the server after setting these — the header badge will show
 ## Project structure
 
 ```
-server.js            Express server + /api/lesson, /api/subjects, /api/topics
-lib/contentBank.js    Offline fallback lessons/quizzes (Math, Science, Reading)
-lib/aiGenerator.js    OpenAI / Azure OpenAI integration
-public/index.html     Front-end markup
-public/app.js         Front-end logic (lesson flow, quiz, adaptive difficulty)
-public/styles.css     Styling
+server.js               Express server + /api/lesson, /api/subjects, /api/topics
+lib/contentBank.js       Offline fallback lessons/quizzes (Math, Science, Reading)
+lib/aiGenerator.js       Direct OpenAI / Azure OpenAI integration
+lib/agentClient.js       Azure AI Foundry Agent Service integration
+public/index.html        Front-end markup
+public/app.js            Front-end logic (lesson flow, quiz, adaptive difficulty)
+public/styles.css        Styling
+infra/main.bicep         Azure infrastructure: Foundry account/project/model, App
+                         Service, Application Insights, managed identity + RBAC
+.github/workflows/       CI/CD: deploy to Azure on every push to main
+docs/DEPLOYMENT.md       Full walkthrough for provisioning + deploying to Azure
 ```
 
-## Next steps toward production
+## Deploying to Azure (production)
 
-Following the prototype → production journey, natural next steps are:
-deploy the model/app behind an Agent, connect the app to that Agent, host it
-somewhere accessible to others (Azure App Service/Container Apps/Functions),
-set up CI/CD via GitHub, and add monitoring (usage, cost, performance).
+`lib/agentClient.js` is the preferred, "production" lesson-generation path:
+it talks to an **Azure AI Foundry Agent** (keyless, via managed identity) that
+wraps the deployed model. If it's not configured or a call fails, the app
+falls back to `lib/aiGenerator.js` (direct OpenAI/Azure OpenAI), and finally
+to the offline content bank — so the app is always available.
+
+To provision the model, Agent, hosting, CI/CD, and monitoring described in
+the prototype → production journey, see **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**.
+Short version:
+
+```bash
+az group create -n rg-learningapp -l eastus2
+az deployment group create -g rg-learningapp -f infra/main.bicep -p appName=joeslearningapp
+```
+
+Then push to `main` to deploy the app via the included GitHub Actions
+workflow (after a one-time OIDC setup — see the doc).

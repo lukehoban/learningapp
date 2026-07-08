@@ -9,6 +9,9 @@
     "dev": "node server.js"
   },
   "dependencies": {
+    "@azure/ai-agents": "^1.1.0",
+    "@azure/identity": "^4.5.0",
+    "applicationinsights": "^3.15.1",
     "express": "^4.19.2"
   },
   "license": "MIT"

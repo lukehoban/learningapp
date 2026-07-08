@@ -1,13 +1,23 @@
-// Joe's homeschool "Dynamic Learning App" prototype.
+// Joe's homeschool "Dynamic Learning App".
 // Serves a small API for generating lessons + adaptive quizzes, and static
-// front-end assets. Uses an AI model when configured (OpenAI or Azure OpenAI /
-// Azure AI Foundry), and otherwise falls back to a built-in content bank so
-// the prototype always runs with zero setup.
+// front-end assets. Lesson generation tries three tiers, from most to least
+// "production": an Azure AI Foundry Agent (agentClient.js), a direct model
+// call via OpenAI/Azure OpenAI (aiGenerator.js), then a built-in offline
+// content bank (contentBank.js) so the app always runs with zero setup.
+
+// "Monitor my app's usage and performance" step: if APPLICATIONINSIGHTS_CONNECTION_STRING
+// is set (wired up automatically by infra/main.bicep), auto-collect requests,
+// dependencies (e.g. calls to the Agent/model), and exceptions.
+if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING) {
+  const appInsights = require("applicationinsights");
+  appInsights.setup().setSendLiveMetrics(true).start();
+}
 
 const express = require("express");
 const path = require("path");
 const contentBank = require("./lib/contentBank");
 const aiGenerator = require("./lib/aiGenerator");
+const agentClient = require("./lib/agentClient");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,7 +28,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/api/subjects", (req, res) => {
   res.json({
     subjects: contentBank.listSubjects(),
-    aiEnabled: aiGenerator.isConfigured(),
+    aiEnabled: aiGenerator.isConfigured() || agentClient.isConfigured(),
+    agentEnabled: agentClient.isConfigured(),
   });
 });
 
@@ -35,6 +46,15 @@ app.post("/api/lesson", async (req, res) => {
     return res.status(400).json({ error: "subject and topic are required" });
   }
   const numericLevel = Math.min(3, Math.max(1, Number(level) || 1));
+
+  if (agentClient.isConfigured()) {
+    try {
+      const lesson = await agentClient.generateLesson({ subject, topic, grade: grade || "elementary", level: numericLevel });
+      return res.json(lesson);
+    } catch (err) {
+      console.error("Agent generation failed, falling back to direct model call:", err.message);
+    }
+  }
 
   if (aiGenerator.isConfigured()) {
     try {
@@ -53,10 +73,15 @@ app.post("/api/lesson", async (req, res) => {
 });
 
 app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", aiEnabled: aiGenerator.isConfigured() });
+  res.json({
+    status: "ok",
+    aiEnabled: aiGenerator.isConfigured() || agentClient.isConfigured(),
+    agentEnabled: agentClient.isConfigured(),
+  });
 });
 
 app.listen(PORT, () => {
   console.log(`Learning app running at http://localhost:${PORT}`);
-  console.log(`AI generation ${aiGenerator.isConfigured() ? "ENABLED" : "disabled (using offline content bank)"}`);
+  console.log(`Agent Service ${agentClient.isConfigured() ? "ENABLED" : "not configured"}`);
+  console.log(`Direct AI generation ${aiGenerator.isConfigured() ? "ENABLED" : "disabled"} (offline content bank always available as final fallback)`);
 });

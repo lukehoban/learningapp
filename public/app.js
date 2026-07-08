@@ -16,7 +16,9 @@ const el = (id) => document.getElementById(id);
 
 async function init() {
   const health = await fetchJSON("/api/subjects");
-  el("ai-badge").textContent = health.aiEnabled
+  el("ai-badge").textContent = health.agentEnabled
+    ? "🤖 Azure AI Foundry Agent enabled — any topic works"
+    : health.aiEnabled
     ? "🤖 AI generation enabled — any topic works"
     : "📚 Using offline sample lessons (no AI key configured)";
 
